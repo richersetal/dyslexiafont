@@ -1,3 +1,4 @@
+import 'package:com_richersetal_dyslexiafont/constants/buttons.dart';
 import 'package:com_richersetal_dyslexiafont/presentation/widgets/dialogs/font_settings_dialog.dart';
 import 'package:flutter/material.dart';
 
@@ -38,11 +39,10 @@ class _HomepageState extends State<MyHomePage> {
               ),
             ),
             const SizedBox(height: 20),
-            ElevatedButton(
+            CustomElevatedButton(
               onPressed: () {
                 _showCustomDialog(context); // Open dialog window for font
               },
-              child: const Icon(Icons.font_download),
             ),
           ],
         ),
