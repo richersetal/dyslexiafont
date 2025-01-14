@@ -1,4 +1,5 @@
 import 'package:com_richersetal_dyslexiafont/logic/cubit/font_cubit.dart';
+import 'package:com_richersetal_dyslexiafont/logic/cubit/opacity_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -10,14 +11,22 @@ class FontSettingsDialog extends StatefulWidget {
 }
 
 class _FontSettingsDialogState extends State<FontSettingsDialog> {
-  String? selectedFont; // Geselecteerde waarde
+  String? selectedFont; // selected value for font
+  late int selectedOpacity; // selected value for opacity
+
+  @override
+  void initState() {
+    super.initState();
+    // get current opacity-value from OpacityCubit and set
+    selectedOpacity = context.read<OpacityCubit>().state;
+  }
 
   @override
   Widget build(BuildContext context) {
-    // Haal de huidige lettertypekeuze uit de FontCubit
+    // get current font from FontCubit
     final currentFont = context.read<FontCubit>().state;
 
-    // uses "default"
+    // Set initial values
     selectedFont = selectedFont ?? (currentFont ?? "default");
 
     return Dialog(
@@ -28,12 +37,20 @@ class _FontSettingsDialogState extends State<FontSettingsDialog> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
-              'Pick Font',
+              'Change Font Settings',
               style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 16.0),
+
+            // Text above Dropdown
+            const Text(
+              'Pick Font',
+              style: TextStyle(fontSize: 16.0),
+            ),
+            const SizedBox(height: 8.0),
 
             // DropdownMenu
             DropdownButton<String>(
@@ -62,14 +79,38 @@ class _FontSettingsDialogState extends State<FontSettingsDialog> {
 
             const SizedBox(height: 16.0),
 
-            // Opslaan-knop
+            // text above Slider
+            const Text(
+              'Adjust Opacity',
+              style: TextStyle(fontSize: 16.0),
+            ),
+            const SizedBox(height: 8.0),
+
+            // Slider for opacity
+            Slider(
+              value: selectedOpacity.toDouble(),
+              min: 0, // Min transparant
+              max: 100, // Max visible
+              divisions: 100, // Staps of 1
+              label: '$selectedOpacity%', // Label with percentage
+              onChanged: (value) {
+                setState(() {
+                  selectedOpacity = value.toInt();
+                });
+              },
+            ),
+
+            const SizedBox(height: 16.0),
+
+            // save
             ElevatedButton(
               onPressed: () {
-                // Pas de keuze toe in FontCubit
+                // use choice in FontCubit and OpacityCubit
                 context.read<FontCubit>().changeFont(
                       selectedFont == "default" ? null : selectedFont,
                     );
-                Navigator.of(context).pop(); // close window
+                context.read<OpacityCubit>().changeOpacity(selectedOpacity);
+                Navigator.of(context).pop(); // close dialog window
               },
               child: const Text('Use'),
             ),
@@ -77,7 +118,8 @@ class _FontSettingsDialogState extends State<FontSettingsDialog> {
             // Annuleren-knop
             ElevatedButton(
               onPressed: () {
-                Navigator.of(context).pop(); // close window without savinf
+                Navigator.of(context)
+                    .pop(); // close dialog window without changes
               },
               child: const Text('Cancel'),
             ),
