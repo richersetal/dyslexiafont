@@ -78,10 +78,10 @@ flutter:
   fonts:
     - family: Lexend
       fonts:
-        - asset: fonts/lexend-VariableFont_wght.ttf
+        - asset: assets/fonts/lexend-VariableFont_wght.ttf
     - family: OpenDyslexic
       fonts:
-        - asset: fonts/OpenDyslexic-Regular.otf
+        - asset: assets/fonts/OpenDyslexic-Regular.otf
 
   #
   # For details regarding fonts from package dependencies,

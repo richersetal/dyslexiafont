@@ -41,7 +41,7 @@ class _FontSettingsDialogState extends State<FontSettingsDialog> {
           children: [
             const Text(
               'Change Font Settings',
-              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 16.0),
 
