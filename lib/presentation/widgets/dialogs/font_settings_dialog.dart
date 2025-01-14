@@ -75,6 +75,7 @@ class _FontSettingsDialogState extends State<FontSettingsDialog> {
                 });
               },
               isExpanded: true,
+              borderRadius: BorderRadius.circular(12),
             ),
 
             const SizedBox(height: 16.0),
@@ -112,7 +113,7 @@ class _FontSettingsDialogState extends State<FontSettingsDialog> {
                 context.read<OpacityCubit>().changeOpacity(selectedOpacity);
                 Navigator.of(context).pop(); // close dialog window
               },
-              child: const Text('Use'),
+              child: const Text('Set'),
             ),
 
             // Annuleren-knop
