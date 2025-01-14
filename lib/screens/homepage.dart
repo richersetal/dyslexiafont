@@ -1,3 +1,4 @@
+import 'package:com_richersetal_dyslexiafont/presentation/widgets/dialogs/font_settings_dialog.dart';
 import 'package:flutter/material.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -9,33 +10,11 @@ class MyHomePage extends StatefulWidget {
 
 class _HomepageState extends State<MyHomePage> {
   void _showCustomDialog(BuildContext context) {
+    // here use FontSettingsDialog
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return Dialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20.0),
-          ),
-          child: Container(
-            padding: EdgeInsets.all(16.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  'Aangepaste pop-up',
-                  style: TextStyle(fontSize: 18.0),
-                ),
-                SizedBox(height: 10),
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: Text('Sluit'),
-                ),
-              ],
-            ),
-          ),
-        );
+        return const FontSettingsDialog(); // use custom dialog window
       },
     );
   }
@@ -43,6 +22,9 @@ class _HomepageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Dyslexia Font'),
+      ),
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -51,16 +33,16 @@ class _HomepageState extends State<MyHomePage> {
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Text(
                 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent auctor, eros in ultricies tempus, nunc mauris laoreet sapien, vel facilisis metus nulla id urna. Donec congue nisi eu nisl pretium, eget eleifend urna sollicitudin. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Quisque in ultrices turpis. Integer feugiat risus eu justo tincidunt, a scelerisque libero hendrerit. Vivamus scelerisque, sapien vel tincidunt dapibus, nisi justo auctor orci, vel ultricies elit ligula non metus.',
-                style: TextStyle(fontFamily: 'Lexens'),
+                style: const TextStyle(fontSize: 16), // No hardcode
                 textAlign: TextAlign.center,
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                _showCustomDialog(context);
+                _showCustomDialog(context); // Open dialog window for font
               },
-              child: Icon(Icons.font_download),
+              child: const Icon(Icons.font_download),
             ),
           ],
         ),
