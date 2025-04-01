@@ -1,4 +1,5 @@
 import 'package:com_richersetal_dyslexiafont/logic/cubit/opacity_cubit.dart';
+import 'package:com_richersetal_dyslexiafont/screens/image_picker_screen';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'logic/cubit/font_cubit.dart';
@@ -46,7 +47,7 @@ class MyApp extends StatelessWidget {
                               100)), // use opacity or use fallback
                     ),
               ),
-              home: const MyHomePage(),
+              home: const ImagePickerScreen(),
             );
           },
         );
